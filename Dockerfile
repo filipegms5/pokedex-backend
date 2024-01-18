@@ -5,10 +5,10 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY *.go ./
+COPY . ./
+
+ENV PORT :8000
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /pokedex-backend
-
-EXPOSE 8080
 
 CMD ["/pokedex-backend"]
