@@ -7,3 +7,4 @@ This is a simple GO API implemented using Gin Gonic. Its Purpose is to return th
  
 ## TO DO
  - Optimize Migrations
+ - (Maybe) Add Services
