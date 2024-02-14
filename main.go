@@ -22,7 +22,8 @@ func main() {
 	database.SetupDatabase(db)
 
 	pokemonRepository := repositories.NewPokemonRepository(db)
-	router := router.SetupRouter(pokemonRepository)
+	typeRepository := repositories.NewTypeRepository(db)
+	router := router.SetupRouter(pokemonRepository, typeRepository)
 
 	router.Run(os.Getenv("PORT"))
 }

@@ -7,12 +7,20 @@ import (
 )
 
 func SetupDatabase(db *gorm.DB) {
-
-	// Migrate the schema
 	db.AutoMigrate(&models.Pokemon{}, &models.Type{})
-	createTypes(db)
-	createPokemon(db)
 
+	// Check if database is already populated
+	if !isDatabasePopulated(db) {
+		// Migrate the schema
+		createTypes(db)
+		createPokemon(db)
+	}
+}
+
+func isDatabasePopulated(db *gorm.DB) bool {
+	var count int64
+	db.Model(&models.Pokemon{}).Count(&count)
+	return count > 0
 }
 
 func createTypes(db *gorm.DB) {

@@ -15,7 +15,7 @@ func NewPokemonRepository(db *gorm.DB) *PokemonRepository {
 
 func (r *PokemonRepository) FindAll() ([]models.Pokemon, error) {
 	var pokemonList []models.Pokemon
-	err := r.db.Find(&pokemonList).Error
+	err := r.db.Preload("Types").Find(&pokemonList).Error
 	if err != nil {
 		return nil, err
 	}
@@ -23,9 +23,10 @@ func (r *PokemonRepository) FindAll() ([]models.Pokemon, error) {
 }
 func (r *PokemonRepository) FindOneById(id int) (models.Pokemon, error) {
 	var pokemon models.Pokemon
-	err := r.db.First(&pokemon, id).Error
+	err := r.db.Preload("Types").First(&pokemon, id).Error
 	if err != nil {
 		return models.Pokemon{}, err
 	}
+
 	return pokemon, err
 }
